@@ -136,7 +136,7 @@ video{
 }
 </style>
 </head>
-<p style="text-align: center;">⚽ PLAYLIST TV 🚩 </p>
+
 <body>
 
 <div class="container">
@@ -171,7 +171,6 @@ video{
 
 const m3uData = `
 
-#####################################################################################
 
 #EXTINF:-1 group-title="️ช่องดิจิตอล" tvg-logo="https://ais-s.ais-vidnt.com/ais/play/origin/LIVE//channelicon/LOGO3HD.PNG",CH3 HD
 https://lb-gmmz.sky-cdn.com/gmm/ch3.m3u8
@@ -761,8 +760,6 @@ https://original.enjoy24cdn.com/hlsr2/11c86f5ef8c5ccb6c3e59410f55d03c0/master.m3
 
 
 
-
-
 `;
 
 // =========================
@@ -973,6 +970,15 @@ function playJW(channel){
 function playChannel(channel){
 
     currentChannel=channel;
+    // เด้งกลับไปที่ตัวเล่นด้านบนอัตโนมัติ
+    const playerWrapper = document.querySelector('.player-wrapper');
+    if(playerWrapper){
+        playerWrapper.scrollIntoView({
+            behavior:'smooth',
+            block:'start'
+        });
+    }
+
 
     localStorage.setItem(
         "lastChannel",
@@ -1333,5 +1339,5 @@ setTimeout(()=>{
 </script>
 
 </body>
-<p style="text-align: center;"> แอพทดลอง! Beta1 จัดทำขึ้นเพื่อความบันเทิง.ภายในครอบครัว.เท่านั้น @ ไม่ได้จำหน่าย By NETI กลุ่ม Android ' Box TV Thai  </p> 
+
 </html>
