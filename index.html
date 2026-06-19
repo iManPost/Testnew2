@@ -131,7 +131,19 @@ video{
     height:100%;
     object-fit:contain;
 }
+    .player-wrapper.tv-focus{
+    border:4px solid #00ff88;
+}
 </style>
+.player-focus{
+    border:4px solid #00ff88 !important;
+}
+
+.tv-focus{
+    border:3px solid #00ff88;
+    background:#333 !important;
+    transform:scale(1.02);
+}
 </head>
 <p style="text-align: center;">⚽ PLAYLIST TV 🚩 </p>
 <body>
@@ -773,6 +785,9 @@ let jw=null;
 let hls=null;
 let currentChannel=null;
 
+let focusArea="list";
+let selectedIndex=0;
+let selectedGroup=0;
 // =========================
 // PARSE M3U
 // =========================
@@ -852,6 +867,66 @@ function parseM3U(text){
     }
 
     return result;
+}
+
+function focusPlayer(){
+
+    focusArea="player";
+
+    document
+    .querySelector(".player-wrapper")
+    .classList
+    .add("player-focus");
+
+    document
+    .querySelectorAll(".item")
+    .forEach(el=>{
+
+        el.classList.remove("tv-focus");
+
+    });
+
+}
+
+function focusItem(index){
+
+    const items=
+    document.querySelectorAll(".item");
+
+    if(!items.length) return;
+
+    document
+    .querySelector(".player-wrapper")
+    .classList
+    .remove("player-focus");
+
+    focusArea="list";
+
+    if(index<0){
+        index=0;
+    }
+
+    if(index>=items.length){
+        index=items.length-1;
+    }
+
+    items.forEach(el=>{
+
+        el.classList.remove("tv-focus");
+
+    });
+
+    selectedIndex=index;
+
+    items[index]
+    .classList
+    .add("tv-focus");
+
+    items[index]
+    .scrollIntoView({
+        behavior:"smooth",
+        block:"nearest"
+    });
 }
 
 // =========================
@@ -1016,6 +1091,12 @@ function playChannel(channel){
     else{
 
         playJW(channel);
+		setTimeout(()=>{
+
+    focusPlayer();
+
+},500);
+      
     }
 }
 
@@ -1032,7 +1113,7 @@ function renderList(list){
         const div=document.createElement("div");
 
         div.className="item";
-        div.tabIndex=-1;
+        
 
         div.dataset.url=ch.url;
 
@@ -1063,8 +1144,9 @@ function renderList(list){
 
 function renderGroups(){
 
-    const groups=[
-        ...new Set(
+const groups=[
+    ...new Set(...)
+]
             channels.map(c=>c.group)
         )
     ];
@@ -1149,32 +1231,34 @@ if(saved){
 // =========================
 // โค้ดเสริม
 // =========================
-let selectedIndex=0;
-let selectedGroup=0;
+// =========================
+// TV NAVIGATION (STABLE)
+// =========================
+
+let selectedIndex = 0;
+let selectedGroup = 0;
 
 function focusItem(index){
 
-    const items=document.querySelectorAll(".item");
+    const items = document.querySelectorAll(".item");
 
     if(!items.length) return;
 
-    if(index<0){
-        index=0;
+    if(index < 0){
+        index = 0;
     }
 
-    if(index>=items.length){
-        index=items.length-1;
+    if(index >= items.length){
+        index = items.length - 1;
     }
 
     items.forEach(el=>{
         el.classList.remove("tv-focus");
     });
 
-    selectedIndex=index;
+    selectedIndex = index;
 
     items[index].classList.add("tv-focus");
-
-    items[index].focus();
 
     items[index].scrollIntoView({
         block:"nearest",
@@ -1184,114 +1268,169 @@ function focusItem(index){
 
 function changeGroup(dir){
 
-    const groups=
-    document.querySelectorAll(
-        ".group-btn"
-    );
+    const groups =
+    document.querySelectorAll(".group-btn");
 
     if(!groups.length) return;
 
-    selectedGroup+=dir;
+    selectedGroup += dir;
 
-    if(selectedGroup<0)
-        selectedGroup=
-        groups.length-1;
+    if(selectedGroup < 0){
+        selectedGroup = 0;
+    }
 
-    if(
-        selectedGroup>=
-        groups.length
-    ){
-        selectedGroup=0;
+    if(selectedGroup >= groups.length){
+        selectedGroup = groups.length - 1;
     }
 
     groups[selectedGroup].click();
 
     setTimeout(()=>{
-
         focusItem(0);
-
-    },200);
+    },150);
 }
 
+// remote
 document.addEventListener("keydown",(e)=>{
 
-    const items=document.querySelectorAll(".item");
+    const items=
+    document.querySelectorAll(".item");
 
     switch(e.keyCode){
 
         case 38: // UP
 
             e.preventDefault();
-            e.stopPropagation();
 
-            focusItem(selectedIndex-1);
-            return false;
+            if(focusArea==="list"){
+
+                if(selectedIndex===0){
+
+                    focusPlayer();
+
+                }else{
+
+                    focusItem(
+                        selectedIndex-1
+                    );
+
+                }
+
+            }
+
+            break;
 
         case 40: // DOWN
 
             e.preventDefault();
-            e.stopPropagation();
 
-            focusItem(selectedIndex+1);
-            return false;
+            if(focusArea==="player"){
+
+                focusItem(0);
+
+            }else{
+
+                focusItem(
+                    selectedIndex+1
+                );
+
+            }
+
+            break;
 
         case 37: // LEFT
 
             e.preventDefault();
-            e.stopPropagation();
 
-            changeGroup(-1);
-            return false;
+            if(focusArea==="list"){
+
+                changeGroup(-1);
+
+            }
+
+            break;
 
         case 39: // RIGHT
 
             e.preventDefault();
-            e.stopPropagation();
 
-            changeGroup(1);
-            return false;
+            if(focusArea==="list"){
+
+                changeGroup(1);
+
+            }
+
+            break;
 
         case 13: // OK
 
             e.preventDefault();
-            e.stopPropagation();
 
-            if(items[selectedIndex]){
-                items[selectedIndex].click();
+            if(
+                focusArea==="list" &&
+                items[selectedIndex]
+            ){
+
+                items[selectedIndex]
+                .click();
+
             }
 
-            return false;
+            break;
+    }
 
-        case 166: // CH+
+});
+// mouse support
+document.addEventListener("mousemove",(e)=>{
 
-            e.preventDefault();
-            e.stopPropagation();
+    const item = e.target.closest(".item");
 
-            focusItem(selectedIndex+1);
+    if(!item) return;
 
-            if(items[selectedIndex]){
-                items[selectedIndex].click();
-            }
+    const items =
+    [...document.querySelectorAll(".item")];
 
-            return false;
+    const idx = items.indexOf(item);
 
-        case 167: // CH-
+    if(idx >= 0){
 
-            e.preventDefault();
-            e.stopPropagation();
+        items.forEach(el=>{
+            el.classList.remove("tv-focus");
+        });
 
-            focusItem(selectedIndex-1);
+        selectedIndex = idx;
 
-            if(items[selectedIndex]){
-                items[selectedIndex].click();
-            }
+        item.classList.add("tv-focus");
+    }
 
-            return false;
+});
+document.addEventListener("click",(e)=>{
+
+    const item=
+    e.target.closest(".item");
+
+    if(!item) return;
+
+    const items=
+    [...document.querySelectorAll(".item")];
+
+    const idx=
+    items.indexOf(item);
+
+    if(idx>=0){
+
+        selectedIndex=idx;
+
+        focusItem(idx);
+
     }
 
 });
 
-
+// initial focus
+setTimeout(()=>{
+    focusItem(0);
+},500);
     
 
     
