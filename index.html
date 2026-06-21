@@ -1,1 +1,13 @@
-ERROR404
+<script>
+fetch('page.html')
+.then(r => r.text())
+.then(html => {
+    const doc = new DOMParser()
+        .parseFromString(html, 'text/html');
+
+    const links = [...doc.querySelectorAll('a')]
+        .map(a => a.href);
+
+    console.log(links);
+});
+</script>
