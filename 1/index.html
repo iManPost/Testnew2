@@ -4,7 +4,89 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>- JW + HLS mpd</title>
+<script>
+/* ==========================
+   ข้อมูลต้นฉบับ
+========================== */
 
+const PORTAL_URL = "https://imanpost.github.io/iptvnew/";
+const MAC_ADDRESS = "00:11:22:33:44:55";
+
+/* ==========================
+   แปลงเป็น Base64
+========================== */
+
+const URL_BASE64 = "YUhSMGNEb3ZMMmx0WVc1d2IzTjBMbWRwZEdoMVlpNXBieTlwY0hSMmJtVjMv";
+const MAC_BASE64 = "MDA6MTE6MjI6MzM6NDQ6NTU=";
+
+        console.log(_0x1a.p); 
+        console.log(_0x1a.m);
+
+/* ==========================
+   ถอดรหัสกลับเมื่อใช้งาน
+========================== */
+
+const CONFIG = {
+    p: atob(YUhSMGNEb3ZMMmx0WVc1d2IzTjBMbWRwZEdoMVlpNXBieTlwY0hSMmJtVjMv),
+    m: atob(MDA6MTE6MjI6MzM6NDQ6NTU=)
+};
+
+console.log(CONFIG);
+
+/* ==========================
+   ป้องกันคลิกขวา
+========================== */
+
+document.addEventListener('contextmenu', e => {
+    e.preventDefault();
+    return false;
+});
+
+document.oncontextmenu = () => false;
+
+window.addEventListener('keydown', e => {
+    if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey &&
+         ['I','J','C'].includes(e.key.toUpperCase())) ||
+        (e.ctrlKey && e.key.toUpperCase() === 'U')
+    ) {
+        e.preventDefault();
+        return false;
+    }
+});
+
+/* ==========================
+   ตรวจจับ DevTools เปิด
+========================== */
+
+setInterval(function() {
+
+    const widthThreshold =
+        window.outerWidth - window.innerWidth > 160;
+
+    const heightThreshold =
+        window.outerHeight - window.innerHeight > 160;
+
+    if (widthThreshold || heightThreshold) {
+
+        document.body.innerHTML = `
+            <div style="
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                height:100vh;
+                font-size:24px;
+                font-family:sans-serif;
+            ">
+                Access Denied
+            </div>
+        `;
+
+    }
+
+}, 1000);
+</script>
 <script src="https://ssl.p.jwpcdn.com/player/v/8.26.0/jwplayer.js"></script>
 <script>
 jwplayer.key = "XSuP4qMl+9tK17QNb+4+th2Pm9AWgMO/cYH8CI0HGGr7bdjo";
