@@ -65,30 +65,49 @@ setInterval(function() {
 
 }, 1000);
 
-         
-        /* ==========================
-   ป้องกันคลิกขวา
-========================== */
-
-document.addEventListener('contextmenu', e => {
+<script>
+// ปิดคลิกขวา
+document.addEventListener('contextmenu', function(e) {
     e.preventDefault();
-    return false;
 });
 
-document.oncontextmenu = () => false;
+// ปิด F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C, Ctrl+U
+document.addEventListener('keydown', function(e) {
 
-window.addEventListener('keydown', e => {
     if (
         e.key === 'F12' ||
         (e.ctrlKey && e.shiftKey &&
-         ['I','J','C'].includes(e.key.toUpperCase())) ||
+            ['I','J','C'].includes(e.key.toUpperCase())
+        ) ||
         (e.ctrlKey && e.key.toUpperCase() === 'U')
     ) {
         e.preventDefault();
         return false;
     }
+
+});
+
+// ปิดการลากรูป
+document.addEventListener('dragstart', function(e) {
+    e.preventDefault();
+});
+
+// ปิดการเลือกข้อความ
+document.addEventListener('selectstart', function(e) {
+    e.preventDefault();
 });
 </script>
+
+<style>
+*{
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+
+    -webkit-touch-callout:none;
+}
+</style>
 
       
 </head>
