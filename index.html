@@ -1,13 +1,20 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div id="content">Loading...</div>
+
 <script>
-fetch('page.html')
-.then(r => r.text())
+fetch('1/index.html')
+.then(res => res.text())
 .then(html => {
-    const doc = new DOMParser()
-        .parseFromString(html, 'Testnew2/1/index.html');
-
-    const links = [...doc.querySelectorAll('a')]
-        .map(a => a.href);
-
-    console.log(links);
+    document.getElementById('content').innerHTML = html;
+})
+.catch(err => {
+    document.getElementById('content').innerHTML =
+        'Error : ' + err;
 });
 </script>
+
+</body>
+</html>
