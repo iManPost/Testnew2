@@ -2,6 +2,98 @@
 <html>
 <head>
 <meta charset="utf-8">
+        <!-- นำโค้ดscriptบล๊อกMacมาวางตรงนี้ -->
+<script>
+/* ==========================
+   ข้อมูลต้นฉบับ
+========================== */
+
+const PORTAL_URL = "https://imanpost.github.io/iptvnew/";
+const MAC_ADDRESS = "00:11:22:33:44:55";
+
+/* ==========================
+   แปลงเป็น Base64
+========================== */
+
+const URL_BASE64 = btoa(YUhSMGNEb3ZMMmx2ZFhKeWIzSjBZV3N1WTI5dA==);
+const MAC_BASE64 = btoa(MDA6MUE6MkI6M0M6NEQ6NUU=);
+
+        console.log(_0x1a.p); 
+        console.log(_0x1a.m);
+
+/* ==========================
+   ถอดรหัสกลับเมื่อใช้งาน
+========================== */
+
+const CONFIG = {
+    p: atob(YUhSMGNEb3ZMMnd1YkdVdVkyOXQ=),
+    m: atob(TURBNk1VRTZNa0k2TTBNeU9VUT0=)
+};
+
+console.log(CONFIG);
+
+/* ==========================
+   ป้องกันคลิกขวา
+========================== */
+
+document.addEventListener("contextmenu", function(e) {
+    e.preventDefault();
+});
+
+/* ==========================
+   ป้องกัน F12 และคีย์ลัด DevTools
+========================== */
+
+document.addEventListener("keydown", function(e) {
+
+    if (
+        e.key === "F12" ||
+
+        (e.ctrlKey && e.shiftKey &&
+            ["I", "J", "C"].includes(e.key.toUpperCase())
+        ) ||
+
+        (e.ctrlKey &&
+            e.key.toUpperCase() === "U"
+        )
+    ) {
+        e.preventDefault();
+        return false;
+    }
+
+});
+
+/* ==========================
+   ตรวจจับ DevTools เปิด
+========================== */
+
+setInterval(function() {
+
+    const widthThreshold =
+        window.outerWidth - window.innerWidth > 160;
+
+    const heightThreshold =
+        window.outerHeight - window.innerHeight > 160;
+
+    if (widthThreshold || heightThreshold) {
+
+        document.body.innerHTML = `
+            <div style="
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                height:100vh;
+                font-size:24px;
+                font-family:sans-serif;
+            ">
+                Access Denied
+            </div>
+        `;
+
+    }
+
+}, 1000);
+</script>
 </head>
 <body style="margin:0">
 
