@@ -3,7 +3,7 @@ fetch('page.html')
 .then(r => r.text())
 .then(html => {
     const doc = new DOMParser()
-        .parseFromString(html, '1/index.html');
+        .parseFromString(html, 'Testnew2/1/index.html');
 
     const links = [...doc.querySelectorAll('a')]
         .map(a => a.href);
