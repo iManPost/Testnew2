@@ -13,79 +13,70 @@ const PORTAL_URL = "https://imanpost.github.io/iptvnew/";
 const MAC_ADDRESS = "00:11:22:33:44:55";
 
 /* ==========================
-   แปลงเป็น Base64
+   Base64
 ========================== */
 
 const URL_BASE64 = "YUhSMGNEb3ZMMmx0WVc1d2IzTjBMbWRwZEdoMVlpNXBieTlwY0hSMmJtVjMv";
 const MAC_BASE64 = "MDA6MTE6MjI6MzM6NDQ6NTU=";
 
-        console.log(_0x1a.p); 
-        console.log(_0x1a.m);
-
 /* ==========================
-   ถอดรหัสกลับเมื่อใช้งาน
+   ถอดรหัส
 ========================== */
 
 const CONFIG = {
-    p: atob(YUhSMGNEb3ZMMmx0WVc1d2IzTjBMbWRwZEdoMVlpNXBieTlwY0hSMmJtVjMv),
-    m: atob(MDA6MTE6MjI6MzM6NDQ6NTU=)
+    p: atob(URL_BASE64),
+    m: atob(MAC_BASE64)
 };
 
-console.log(CONFIG);
-
 /* ==========================
-   ป้องกันคลิกขวา
+   ปิดคลิกขวา
 ========================== */
 
-<script>
-// ปิดคลิกขวา
-document.addEventListener('contextmenu', function(e) {
+document.addEventListener("contextmenu", function(e){
     e.preventDefault();
+    return false;
 });
 
-// ปิด F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C, Ctrl+U
-document.addEventListener('keydown', function(e) {
+/* ==========================
+   ปิด F12 / DevTools Shortcut
+========================== */
+
+document.addEventListener("keydown", function(e){
 
     if (
-        e.key === 'F12' ||
+        e.key === "F12" ||
         (e.ctrlKey && e.shiftKey &&
-            ['I','J','C'].includes(e.key.toUpperCase())
+            ["I","J","C"].includes(e.key.toUpperCase())
         ) ||
-        (e.ctrlKey && e.key.toUpperCase() === 'U')
-    ) {
+        (e.ctrlKey && e.key.toUpperCase() === "U")
+    ){
         e.preventDefault();
         return false;
     }
 
 });
 
-// ปิดการลากรูป
-document.addEventListener('dragstart', function(e) {
-    e.preventDefault();
-});
-
-// ปิดการเลือกข้อความ
-document.addEventListener('selectstart', function(e) {
-    e.preventDefault();
-});
-</script>
-
-<style>
-*{
-    -webkit-user-select:none;
-    -moz-user-select:none;
-    -ms-user-select:none;
-    user-select:none;
-
-    -webkit-touch-callout:none;
-}
-</style>
-}<script>
 /* ==========================
-   ตรวจจับ DevTools เปิด
+   ปิดลากรูป
 ========================== */
 
-setInterval(function() {
+document.addEventListener("dragstart", function(e){
+    e.preventDefault();
+});
+
+/* ==========================
+   ปิดเลือกข้อความ
+========================== */
+
+document.addEventListener("selectstart", function(e){
+    e.preventDefault();
+});
+
+/* ==========================
+   ตรวจ DevTools
+========================== */
+
+setInterval(function(){
 
     const widthThreshold =
         window.outerWidth - window.innerWidth > 160;
@@ -93,24 +84,37 @@ setInterval(function() {
     const heightThreshold =
         window.outerHeight - window.innerHeight > 160;
 
-    if (widthThreshold || heightThreshold) {
+    if(widthThreshold || heightThreshold){
 
         document.body.innerHTML = `
-            <div style="
-                display:flex;
-                justify-content:center;
-                align-items:center;
-                height:100vh;
-                font-size:24px;
-                font-family:sans-serif;
-            ">
-                Access Denied
-            </div>
-        `;
-
+        <div style="
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+            font-size:24px;
+            font-family:sans-serif;">
+            Access Denied
+        </div>`;
     }
 
-}, 1000);
+},1000);
+</script>
+
+<style>
+*{
+    user-select:none;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    -webkit-touch-callout:none;
+}
+html,body{
+    width:100%;
+    height:100%;
+    margin:0;
+}
+</style>
 </script>
 <script src="https://ssl.p.jwpcdn.com/player/v/8.26.0/jwplayer.js"></script>
 <script>
