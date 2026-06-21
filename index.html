@@ -32,28 +32,7 @@ const CONFIG = {
 
 console.log(CONFIG);
 
-/* ==========================
-   ป้องกันคลิกขวา
-========================== */
 
-document.addEventListener('contextmenu', e => {
-    e.preventDefault();
-    return false;
-});
-
-document.oncontextmenu = () => false;
-
-window.addEventListener('keydown', e => {
-    if (
-        e.key === 'F12' ||
-        (e.ctrlKey && e.shiftKey &&
-         ['I','J','C'].includes(e.key.toUpperCase())) ||
-        (e.ctrlKey && e.key.toUpperCase() === 'U')
-    ) {
-        e.preventDefault();
-        return false;
-    }
-});
 
 /* ==========================
    ตรวจจับ DevTools เปิด
@@ -85,7 +64,33 @@ setInterval(function() {
     }
 
 }, 1000);
+
+         
+        /* ==========================
+   ป้องกันคลิกขวา
+========================== */
+
+document.addEventListener('contextmenu', e => {
+    e.preventDefault();
+    return false;
+});
+
+document.oncontextmenu = () => false;
+
+window.addEventListener('keydown', e => {
+    if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey &&
+         ['I','J','C'].includes(e.key.toUpperCase())) ||
+        (e.ctrlKey && e.key.toUpperCase() === 'U')
+    ) {
+        e.preventDefault();
+        return false;
+    }
+});
 </script>
+
+      
 </head>
 <body style="margin:0">
 
